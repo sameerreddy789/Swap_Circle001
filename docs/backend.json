@@ -1,0 +1,235 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user profile in the SwapCircle application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "username": {
+          "type": "string",
+          "description": "User's displayed username."
+        },
+        "bio": {
+          "type": "string",
+          "description": "A short description or biography of the user."
+        },
+        "location": {
+          "type": "string",
+          "description": "User's general location (e.g., city, state)."
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "description": "URL of the user's profile picture.",
+          "format": "uri"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Average user rating from 1 to 5."
+        },
+        "reviewCount": {
+          "type": "number",
+          "description": "Total number of reviews received."
+        },
+        "savedItems": {
+            "type": "array",
+            "description": "A list of item IDs that the user has saved to their wishlist.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "blockedUsers": {
+          "type": "array",
+          "description": "A list of user IDs that this user has blocked.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "username"
+      ]
+    },
+    "Item": {
+      "title": "Item",
+      "description": "Represents an item listed for swap.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the item." },
+        "category": { "type": "string", "description": "Category of the item." },
+        "condition": { "type": "string", "description": "Condition of the item." },
+        "description": { "type": "string", "description": "Detailed description of the item." },
+        "imageUrl": { "type": "string", "format": "uri", "description": "URL of the item's image." },
+        "thumbnailUrl": { "type": "string", "format": "uri", "description": "URL of the item's thumbnail image." },
+        "imageHint": { "type": "string", "description": "Hint for AI image search." },
+        "ownerId": { "type": "string", "description": "The UID of the user who owns the item." },
+        "ownerUsername": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of when the item was listed." },
+        "status": { "type": "string", "enum": ["available", "traded", "on-loan"], "description": "The current status of the item." },
+        "location": { "type": "string", "description": "The city where the item is located." },
+        "landmark": { "type": "string", "description": "A nearby landmark or specific area for the item." },
+        "tradePreference": { "type": "string", "enum": ["permanent", "temporary"], "description": "The user's preference for trading this item." },
+        "loanDurationDays": { "type": "number", "description": "If tradePreference is temporary, the duration of the loan in days." },
+        "lookingFor": { "type": "string", "description": "A description of what the user is looking for in return for this item." }
+      },
+      "required": ["name", "category", "condition", "description", "imageUrl", "ownerId", "ownerUsername", "createdAt", "status", "location", "landmark", "tradePreference", "lookingFor"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A review of a user from another user after a swap.",
+      "type": "object",
+      "properties": {
+        "fromUserId": { "type": "string" },
+        "fromUsername": { "type": "string" },
+        "toUserId": { "type": "string" },
+        "tradeId": { "type": "string" },
+        "rating": { "type": "number", "minimum": 1, "maximum": 5 },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["fromUserId", "fromUsername", "toUserId", "tradeId", "rating", "createdAt"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "A report filed by a user against another user or item.",
+      "type": "object",
+      "properties": {
+        "reporterId": { "type": "string", "description": "The UID of the user who filed the report." },
+        "reportedId": { "type": "string", "description": "The UID of the user being reported." },
+        "tradeId": { "type": "string", "description": "The ID of the trade associated with the report." },
+        "reason": { "type": "string", "enum": ["spam", "harassment", "fraud", "inappropriate-item", "other"], "description": "The reason for the report." },
+        "comment": { "type": "string", "description": "An optional detailed comment about the report." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of when the report was filed." },
+        "status": { "type": "string", "enum": ["pending", "resolved"], "description": "The current status of the report." }
+      },
+      "required": ["reporterId", "reportedId", "tradeId", "reason", "createdAt", "status"]
+    },
+    "Trade": {
+      "title": "Trade",
+      "description": "Represents a trade request between two users for their items.",
+      "type": "object",
+      "properties": {
+        "proposerId": { "type": "string", "description": "User ID of the person proposing the trade." },
+        "proposerUsername": { "type": "string" },
+        "proposerItemId": { "type": "string", "description": "Item ID of the proposer's item." },
+        "proposerItemName": { "type": "string" },
+        "proposerItemImageUrl": { "type": "string" },
+        "receiverId": { "type": "string", "description": "User ID of the person receiving the trade request." },
+        "receiverUsername": { "type": "string" },
+        "receiverItemId": { "type": "string", "description": "Item ID of the receiver's item being requested." },
+        "receiverItemName": { "type": "string" },
+        "receiverItemImageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected", "completed", "on-loan", "return-pending", "cancelled"], "description": "The current status of the trade." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "cancelledBy": { "type": "string", "description": "User ID of the person who cancelled the trade." },
+        "cancelledAt": { "type": "string", "format": "date-time", "description": "Timestamp of when the trade was cancelled." },
+        "reviewedByProposer": { "type": "boolean", "description": "True if the proposer has left a review for this trade." },
+        "reviewedByReceiver": { "type": "boolean", "description": "True if the receiver has left a review for this trade." },
+        "tradeType": { "type": "string", "enum": ["permanent", "temporary"], "description": "The type of trade." },
+        "durationDays": { "type": "number", "description": "The duration of the loan in days, if the trade is temporary." },
+        "proposerAgreedStart": { "type": "boolean" },
+        "receiverAgreedStart": { "type": "boolean" },
+        "proposerAgreedReturn": { "type": "boolean" },
+        "receiverAgreedReturn": { "type": "boolean" },
+        "participants": { "type": "array", "items": { "type": "string" }}
+      },
+      "required": ["proposerId", "proposerUsername", "proposerItemId", "proposerItemName", "proposerItemImageUrl", "receiverId", "receiverUsername", "receiverItemId", "receiverItemName", "receiverItemImageUrl", "status", "createdAt", "participants"]
+    },
+    "Message": {
+        "title": "Message",
+        "description": "A message within a trade conversation.",
+        "type": "object",
+        "properties": {
+            "tradeId": { "type": "string" },
+            "senderId": { "type": "string" },
+            "text": { "type": "string" },
+            "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["tradeId", "senderId", "text", "createdAt"]
+    },
+    "HeroSlide": {
+      "title": "HeroSlide",
+      "description": "Content for a slide in the homepage hero slider.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "bgImage": { "type": "string", "format": "uri" },
+        "primaryBtn": { "type": "string" },
+        "secondaryBtn": { "type": "string" },
+        "primaryBtnLink": { "type": "string" },
+        "secondaryBtnLink": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["title", "description", "bgImage", "primaryBtn", "primaryBtnLink", "order"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Represents a notification for a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The ID of the user this notification is for." },
+        "title": { "type": "string", "description": "The title of the notification." },
+        "description": { "type": "string", "description": "The main content of the notification." },
+        "link": { "type": "string", "description": "A URL link related to the notification." },
+        "read": { "type": "boolean", "description": "Indicates if the notification has been read." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of when the notification was created." }
+      },
+      "required": ["userId", "title", "description", "read", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous",
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores user profile information."
+    },
+    "/items/{itemId}": {
+      "schema": { "$ref": "#/entities/Item" },
+      "description": "Stores all items available for swap."
+    },
+    "/users/{userId}/reviews/{reviewId}": {
+        "schema": { "$ref": "#/entities/Review" },
+        "description": "Stores reviews received by a user."
+    },
+    "/trades/{tradeId}": {
+      "schema": { "$ref": "#/entities/Trade" },
+      "description": "Stores all trade requests and their statuses, including historical trades."
+    },
+    "/trades/{tradeId}/messages/{messageId}": {
+        "schema": { "$ref": "#/entities/Message" },
+        "description": "Stores messages for a specific trade."
+    },
+    "/hero_slides/{slideId}": {
+      "schema": { "$ref": "#/entities/HeroSlide" },
+      "description": "Stores content for the homepage hero slider."
+    },
+    "/reports/{reportId}": {
+        "schema": { "$ref": "#/entities/Report" },
+        "description": "Stores user-submitted reports for admin review."
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "Stores notifications for a specific user."
+    }
+  }
+}
