@@ -1,6 +1,6 @@
 "use client"
 
-import * from "react"
+import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority"
 
@@ -36,7 +36,7 @@ const buttonVariants = cva(
   }
 )
 
-const Button = React.forwardRef((({ children, className, variant = "default", ...props }, ref) => {
+const Button = React.forwardRef(({ children, className, variant = "default", ...props }, ref) => {
   const [isPressed, setIsPressed] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
   const [isTouchDevice, setIsTouchDevice] = React.useState(false);

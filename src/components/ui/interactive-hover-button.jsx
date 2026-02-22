@@ -4,7 +4,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const InteractiveHoverButton = React.forwardRef((({ text = "Button", className, ...props }, ref) => {
+const InteractiveHoverButton = React.forwardRef(({ text = "Button", className, ...props }, ref) => {
   return (
     <button
       ref={ref}

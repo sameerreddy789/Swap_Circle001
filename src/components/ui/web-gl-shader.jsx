@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import * from "three"
+import * as THREE from "three"
 
 export function WebGLShader() {
   const canvasRef = useRef(null)

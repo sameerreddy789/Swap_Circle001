@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
 import React, { useEffect, useRef, useMemo } from 'react';
-import * from 'three';
+import * as THREE from 'three';
 
 export function DottedSurface({ className, ...props }) {
     const { theme } = useTheme();
