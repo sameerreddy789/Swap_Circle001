@@ -8,7 +8,12 @@ import {
 } from "@/components/ui/accordion";
 import HowItWorks from "@/components/how-it-works";
 import { Hero } from "@/components/ui/animated-hero";
-import { DottedSurface } from "@/components/ui/dotted-surface";
+import dynamic from "next/dynamic";
+
+const DottedSurface = dynamic(
+  () => import("@/components/ui/dotted-surface").then(mod => ({ default: mod.DottedSurface })),
+  { ssr: false }
+);
 
 export default function Home() {
   
