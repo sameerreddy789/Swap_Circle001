@@ -149,7 +149,7 @@ export default function InboxPage() {
     }
 
     return (
-        <div className="h-[calc(100vh-5rem)] flex md:grid md:grid-cols-3">
+        <div className="h-[calc(100vh-5rem)] pb-24 sm:pb-28 flex md:grid md:grid-cols-3">
             <aside className={cn(
                 "w-full md:w-auto md:col-span-1 md:flex flex-col border-r overflow-y-auto transition-transform duration-300 ease-in-out",
                 selectedTradeId ? "hidden md:flex" : "flex"
