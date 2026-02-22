@@ -26,7 +26,6 @@ import { toast } from "@/hooks/use-toast";
 import { useEffect, useState, useMemo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ItemCard from "@/components/item-card";
-import { useLoading } from "@/hooks/use-loading";
 
 function MyItemsPageSkeleton() {
   return (
@@ -57,7 +56,6 @@ export default function MyItemsPage() {
   const firestore = useFirestore();
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(null);
-  const { showLoader, hideLoader } = useLoading();
 
   useEffect(() => {
     if (!isAuthLoading && !user) {
@@ -92,15 +90,6 @@ export default function MyItemsPage() {
 
 
   const isLoading = isAuthLoading || myItemsLoading || profileLoading || (savedItemIds.length > 0 && savedItemsLoading);
-
-  useEffect(() => {
-    if (isLoading) {
-      showLoader();
-    } else {
-      hideLoader();
-    }
-  }, [isLoading, showLoader, hideLoader]);
-
 
   const handleRemoveItem = async (itemId) => {
     if (!firestore) return;
