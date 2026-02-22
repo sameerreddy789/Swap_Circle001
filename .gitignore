@@ -37,3 +37,7 @@ next-env.d.ts
 # genkit
 .genkit/
 .genkit-cache.json
+
+# firebase
+firebase-debug.log
+.firebase/

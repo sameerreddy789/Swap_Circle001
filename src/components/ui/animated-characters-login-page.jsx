@@ -463,8 +463,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   eyeColor="white" 
                   pupilColor="#2D2D2D" 
                   isBlinking={isPurpleBlinking}
-                  forceLookX={(password.length > 0 && showPassword) ? (isPurplePeeking ? 4 : -4) : isLookingAtEachOther ? 3}
-                  forceLookY={(password.length > 0 && showPassword) ? (isPurplePeeking ? 5 : -4) : isLookingAtEachOther ? 4}
+                  forceLookX={(password.length > 0 && showPassword) ? (isPurplePeeking ? 4 : -4) : isLookingAtEachOther ? 3 : 0}
+                  forceLookY={(password.length > 0 && showPassword) ? (isPurplePeeking ? 5 : -4) : isLookingAtEachOther ? 4 : 0}
                 />
                 <EyeBall 
                   size={18} 
@@ -473,8 +473,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   eyeColor="white" 
                   pupilColor="#2D2D2D" 
                   isBlinking={isPurpleBlinking}
-                  forceLookX={(password.length > 0 && showPassword) ? (isPurplePeeking ? 4 : -4) : isLookingAtEachOther ? 3}
-                  forceLookY={(password.length > 0 && showPassword) ? (isPurplePeeking ? 5 : -4) : isLookingAtEachOther ? 4}
+                  forceLookX={(password.length > 0 && showPassword) ? (isPurplePeeking ? 4 : -4) : isLookingAtEachOther ? 3 : 0}
+                  forceLookY={(password.length > 0 && showPassword) ? (isPurplePeeking ? 5 : -4) : isLookingAtEachOther ? 4 : 0}
                 />
               </div>
             </div>
@@ -513,8 +513,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   eyeColor="white" 
                   pupilColor="#2D2D2D" 
                   isBlinking={isBlackBlinking}
-                  forceLookX={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? 0}
-                  forceLookY={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -4}
+                  forceLookX={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -3 : 0}
+                  forceLookY={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -4 : 0}
                 />
                 <EyeBall 
                   size={16} 
@@ -523,8 +523,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   eyeColor="white" 
                   pupilColor="#2D2D2D" 
                   isBlinking={isBlackBlinking}
-                  forceLookX={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? 0}
-                  forceLookY={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -4}
+                  forceLookX={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -3 : 0}
+                  forceLookY={(password.length > 0 && showPassword) ? -4 : isLookingAtEachOther ? -4 : 0}
                 />
               </div>
             </div>
@@ -550,8 +550,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   top: (password.length > 0 && showPassword) ? `${85}px` : `${90 + (orangePos.faceY || 0)}px`,
                 }}
               >
-                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5} forceLookY={(password.length > 0 && showPassword) ? -4} />
-                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5} forceLookY={(password.length > 0 && showPassword) ? -4} />
+                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5 : 0} forceLookY={(password.length > 0 && showPassword) ? -4 : 0} />
+                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5 : 0} forceLookY={(password.length > 0 && showPassword) ? -4 : 0} />
               </div>
             </div>
             <div 
@@ -575,8 +575,8 @@ export default function AnimatedCharactersLoginPage({ pageType: initialPageType 
                   top: (password.length > 0 && showPassword) ? `${35}px` : `${40 + (yellowPos.faceY || 0)}px`,
                 }}
               >
-                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5} forceLookY={(password.length > 0 && showPassword) ? -4} />
-                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5} forceLookY={(password.length > 0 && showPassword) ? -4} />
+                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5 : 0} forceLookY={(password.length > 0 && showPassword) ? -4 : 0} />
+                <Pupil size={12} maxDistance={5} pupilColor="#2D2D2D" forceLookX={(password.length > 0 && showPassword) ? -5 : 0} forceLookY={(password.length > 0 && showPassword) ? -4 : 0} />
               </div>
               <div 
                 className="absolute w-20 h-[4px] bg-[#2D2D2D] rounded-full transition-all duration-200 ease-out"

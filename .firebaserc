@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "swap-circle-d9ac5"
+  },
+  "targets": {
+    "swap-circle-d9ac5": {
+      "hosting": {
+        "swap-circle": [
+          "swap-circle-d9ac5"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
