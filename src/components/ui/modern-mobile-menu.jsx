@@ -1,10 +1,9 @@
-
 'use client';
-import React, { useState, useRef, useEffect, useMemo, useTransition } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Home, Search, PlusCircle, Package, MessageSquare } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useLoading } from '@/hooks/use-loading';
+import Link from 'next/link';
 
 const iconMap = {
     Home,
@@ -14,7 +13,7 @@ const iconMap = {
     MessageSquare,
 };
 
-const defaultItems: InteractiveMenuItem[] = [
+const defaultItems = [
     { label: 'Home', icon: 'Home', href: '/' },
     { label: 'Browse', icon: 'Search', href: '/items' },
     { label: 'List', icon: 'PlusCircle', href: '/items/new' },
@@ -23,25 +22,12 @@ const defaultItems: InteractiveMenuItem[] = [
 ];
 
 const InteractiveMenu = ({ items }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPending, startTransition] = useTransition();
-  const { showLoader } = useLoading();
-  const menuRef = useRef(null);
-
-  const finalItems = useMemo(() => {
-     const navItems = [...defaultItems];
-     const inboxItem = { label: 'Inbox', icon: 'MessageSquare', href: '/inbox' };
-     if (!navItems.find(item => item.label === 'Inbox')) {
-        navItems.push(inboxItem);
-     }
-     return navItems;
-  }, []);
+  const finalItems = useMemo(() => defaultItems, []);
 
   useEffect(() => {
     const matchingItemIndex = finalItems.findIndex(item => pathname === item.href);
-
     if (matchingItemIndex !== -1) {
       setActiveIndex(matchingItemIndex);
     } else {
@@ -56,36 +42,25 @@ const InteractiveMenu = ({ items }) => {
         setActiveIndex(pathname === '/' ? 0 : -1);
     }
   }, [pathname, finalItems]);
-  
-
-  const handleItemClick = (href) => {
-    if (pathname === href) return;
-    showLoader(5000); // Show loader with a 5-second timeout
-    startTransition(() => {
-      router.push(href);
-    });
-  };
 
   return (
-    <nav className={cn("menu", isPending && "opacity-70")} role="navigation" ref={menuRef}>
+    <nav className="menu" role="navigation">
       {finalItems.map((item, index) => {
         const isRouteActive = index === activeIndex;
         const IconComponent = iconMap[item.icon] || Home;
-
         return (
-          <button
+          <Link
             key={item.label}
-            className={cn('menu-item', { 
-                'route-active': isRouteActive,
-            })}
-            onClick={() => handleItemClick(item.href)}
+            href={item.href}
+            prefetch={true}
+            className={cn('menu-item', { 'route-active': isRouteActive })}
             title={item.label}
           >
             <div className="relative flex flex-col items-center justify-center h-full">
                 <IconComponent className="menu-icon" />
                 <span className="menu-title">{item.label}</span>
             </div>
-          </button>
+          </Link>
         );
       })}
     </nav>
