@@ -1,35 +1,37 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
-/**
- * A custom React hook that detects the vertical scroll direction ('up' or 'down').
- * @returns {'up' | 'down' | null} The current scroll direction.
- */
 export function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState(null);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  const updateScrollDirection = useCallback(() => {
+    const scrollY = window.scrollY;
+    const direction = scrollY > lastScrollY.current ? 'down' : 'up';
+
+    if (Math.abs(scrollY - lastScrollY.current) > 10) {
+      setScrollDirection(prev => prev === direction ? prev : direction);
+    }
+
+    lastScrollY.current = scrollY > 0 ? scrollY : 0;
+    ticking.current = false;
+  }, []);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const scrollThreshold = 10; 
+    lastScrollY.current = window.scrollY;
 
-    const updateScrollDirection = () => {
-      const scrollY = window.scrollY;
-      const direction = scrollY > lastScrollY ? 'down' : 'up';
-
-      if (Math.abs(scrollY - lastScrollY) > scrollThreshold && direction !== scrollDirection) {
-        setScrollDirection(direction);
+    const onScroll = () => {
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(updateScrollDirection);
       }
-      
-      lastScrollY = scrollY > 0 ? scrollY : 0;
     };
 
-    window.addEventListener('scroll', updateScrollDirection);
-
-    return () => {
-      window.removeEventListener('scroll', updateScrollDirection);
-    };
-  }, [scrollDirection]);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [updateScrollDirection]);
 
   return scrollDirection;
 }
