@@ -10,8 +10,8 @@ import HowItWorks from "@/components/how-it-works";
 import { Hero } from "@/components/ui/animated-hero";
 import dynamic from "next/dynamic";
 
-const DottedSurface = dynamic(
-  () => import("@/components/ui/dotted-surface").then(mod => ({ default: mod.DottedSurface })),
+const InfinitePlaneBg = dynamic(
+  () => import("@/components/ui/infinite-plane"),
   { ssr: false }
 );
 
@@ -42,7 +42,9 @@ export default function Home() {
 
   return (
       <div className="relative">
-        <DottedSurface />
+        <div className="fixed inset-0 -z-10">
+          <InfinitePlaneBg planeHeight={0} speed={1} />
+        </div>
         <div className="relative z-10">
           <main>
              <div className="relative">
