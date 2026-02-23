@@ -12,7 +12,6 @@ import ConversationView from "@/components/conversation-view";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { updateDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { useLoading } from "@/hooks/use-loading";
 
 export default function InboxPage() {
     const { user, isUserLoading } = useUser();
@@ -20,7 +19,6 @@ export default function InboxPage() {
     const router = useRouter();
     const [selectedTradeId, setSelectedTradeId] = useState(null);
     const { toast } = useToast();
-    const { showLoader, hideLoader } = useLoading();
 
     const tradesQuery = useMemoFirebase(() => {
         if (!user || !firestore) return null;
@@ -65,7 +63,6 @@ export default function InboxPage() {
 
     const handleAccept = async (trade) => {
         if (!firestore || !user || trade.receiverId !== user.uid) return;
-        showLoader();
         const tradeRef = doc(firestore, 'trades', trade.id);
         try {
             await updateDoc(tradeRef, {
@@ -73,11 +70,9 @@ export default function InboxPage() {
                 updatedAt: serverTimestamp(),
             });
             toast({ title: "Trade Accepted!", description: "You can now chat with the other user." });
-            setTimeout(() => { hideLoader(); }, 1200);
         } catch (error) {
             console.error("Error accepting trade:", error);
             toast({ variant: "destructive", title: "Error accepting trade.", description: error.message || "Please try again." });
-            hideLoader();
         }
     };
 

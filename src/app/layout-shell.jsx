@@ -25,7 +25,7 @@ export default function LayoutShell({ children }) {
   const pathname = usePathname();
 
   const authRoutes = ['/login', '/signup', '/forgot-password'];
-  const noNavRoutes = [...authRoutes];
+  const noNavRoutes = [];
   const showNav = !noNavRoutes.includes(pathname);
 
   return (

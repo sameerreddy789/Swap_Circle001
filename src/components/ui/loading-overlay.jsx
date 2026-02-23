@@ -13,7 +13,7 @@ export default function LoadingOverlay() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background/95"
         >
           <BoxLoader />
           <p className="mt-20 text-lg font-medium text-primary">Loading...</p>
