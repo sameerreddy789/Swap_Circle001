@@ -49,7 +49,8 @@ void main() {
     vec3 n = calcNormal(p);
     vec3 lightDir = normalize(vec3(1.0, 1.0, -1.0));
     float diff = max(dot(n, lightDir), 0.0);
-    float check = mod(floor(p.x) + floor(p.z - u_time * u_speed), 2.0);
+    float tileScale = 0.25;
+    float check = mod(floor(p.x * tileScale) + floor((p.z - u_time * u_speed) * tileScale), 2.0);
     vec3 mat = mix(vec3(0.2), vec3(0.6), check);
     color = mat * diff;
   }
