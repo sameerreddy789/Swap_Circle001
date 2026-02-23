@@ -4,10 +4,8 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import React from "react"
 import { StardustButton } from "./stardust-button";
-import { useRouter } from "next/navigation";
 
 export function Hero() {
-  const router = useRouter();
   const titles = [
     "amazing",
     "new",
@@ -45,9 +43,11 @@ export function Hero() {
           faster, and more sustainable than ever.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
-           <StardustButton onClick={() => router.push('/items')}>
-              Start Swapping Now
-            </StardustButton>
+           <Link href="/items" prefetch={true}>
+             <StardustButton>
+                Start Swapping Now
+              </StardustButton>
+           </Link>
         </div>
       </div>
     </div>
