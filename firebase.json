@@ -1,15 +1,46 @@
 {
   "hosting": {
-    "source": ".",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "frameworksBackend": {
-      "region": "us-central1"
-    }
+    "rewrites": [
+      {
+        "source": "/items/new",
+        "destination": "/items/new.html"
+      },
+      {
+        "source": "/items/*",
+        "destination": "/items/_.html"
+      },
+      {
+        "source": "/users/*",
+        "destination": "/users/_.html"
+      },
+      {
+        "source": "/profile/*",
+        "destination": "/profile/_.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
   "firestore": {
     "rules": "firestore.rules"
   },
